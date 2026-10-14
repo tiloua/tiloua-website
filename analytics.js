@@ -31,13 +31,13 @@
   for(const name of names) for(const domain of domains) document.cookie=name+'=; Max-Age=0; path=/'+(domain?'; domain='+domain:'');
  }
  const settings=[...document.querySelectorAll('.cookie-settings')];
- settings.forEach(button=>{button.hidden=false;button.addEventListener('click',()=>{banner.hidden=false;banner.querySelector('button').focus();});});
+ settings.forEach(button=>{button.hidden=false;button.addEventListener('click',()=>{banner.hidden=false;banner.querySelector('button').focus({preventScroll:true});});});
  banner.querySelectorAll('[data-choice]').forEach(button=>button.addEventListener('click',()=>{
   choice=button.dataset.choice;
   try{localStorage.setItem(key,JSON.stringify({value:choice,time:Date.now()}));}catch{}
   if(choice==='accepted') enable();
   else {window['ga-disable-'+id]=true;clearCookies();if(loaded){location.reload();return;}}
-  banner.hidden=true;settings[0]?.focus();
+  banner.hidden=true;settings[0]?.focus({preventScroll:true});
  }));
  if(choice==='accepted') enable(); else {window['ga-disable-'+id]=true;clearCookies();if(!choice) banner.hidden=false;}
 })();
